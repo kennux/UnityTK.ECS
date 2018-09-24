@@ -1,0 +1,16 @@
+{
+    "name": "UnityTK.ECS",
+    "references": [
+        "UnityTK",
+        "Unity.Transforms",
+        "Unity.Entities",
+        "Unity.Rendering.Hybrid",
+        "Unity.Collections",
+        "Unity.Mathematics",
+        "Unity.Entities.Hybrid"
+    ],
+    "optionalUnityReferences": [],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false
+}

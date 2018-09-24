@@ -1,0 +1,18 @@
+{
+    "name": "UnityTK.ECS.Editor",
+    "references": [
+        "UnityTK.Editor",
+        "UnityTK",
+        "UnityTK.ECS",
+        "Unity.Transforms",
+        "Unity.Entities",
+        "Unity.Rendering.Hybrid",
+        "Unity.Collections",
+        "Unity.Mathematics",
+        "Unity.Entities.Hybrid"
+    ],
+    "optionalUnityReferences": [],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false
+}
