@@ -22,6 +22,20 @@ namespace UnityTK.ECS
     public abstract class ECSPrototypeComponent<TConstructData> : ScriptableObject
     {
         /// <summary>
+        /// This method decides whether or not this prototype component will override the other component.
+        /// The other component is retrieved from <see cref="ECSPrototype{TDataType, TConstructData, TPrototypeType}.ancestor"/>.
+        /// 
+        /// This method is called on every component on the prototype for every component on the ancestor.
+        /// This method can be overridden for custom behaviour, standard implementation does a type check and overrides other if the type is the same as this component.
+        /// </summary>
+        /// <param name="other">The component to check overriding for.</param>
+        /// <returns>Whether or not this component would replace the specified other component.</returns>
+        public virtual bool DoesOverride(ECSPrototypeComponent<TConstructData> other)
+        {
+            return this.GetType() == other.GetType();
+        }
+
+        /// <summary>
         /// Gets the component types this prototype data would add to a unity ecs entity.
         /// Adds the component types to the list.
         /// </summary>

@@ -1,5 +1,5 @@
 {
-    "name": "UnityTK.ECS.Editor",
+    "name": "UnityTK.ECS.Tests",
     "references": [
         "UnityTK.Editor",
         "UnityTK",
@@ -9,8 +9,7 @@
         "Unity.Rendering.Hybrid",
         "Unity.Collections",
         "Unity.Mathematics",
-        "Unity.Entities.Hybrid",
-        "UnityTK.Tests"
+        "Unity.Entities.Hybrid"
     ],
     "optionalUnityReferences": [],
     "includePlatforms": [],
