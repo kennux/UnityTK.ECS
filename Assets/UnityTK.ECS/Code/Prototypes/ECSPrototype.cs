@@ -172,6 +172,8 @@ namespace UnityTK.ECS
                     component = comp as T;
                     return true;
                 }
+
+            component = default(T);
             return false;
         }
 
