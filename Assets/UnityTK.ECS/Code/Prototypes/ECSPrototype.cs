@@ -15,9 +15,9 @@ namespace UnityTK.ECS
     /// They support inheritance, inherited components will be overridden by components of the same type higher in the hierarchy.
     /// <see cref="ECSPrototypeComponent{TConstructData}.DoesOverride(ECSPrototypeComponent{TConstructData})"/>
     /// </summary>
-    /// <typeparam name="TDataType">The base type of the components that can be added to this prototype.</typeparam>
+    /// <typeparam name="TComponentType">The base type of the components that can be added to this prototype.</typeparam>
     /// <typeparam name="TConstructData">A data object or structure to be passed to all prototype datas <see cref="ECSPrototypeComponent{TSpawnData}"/> in order to pass in information to spawn the prototype.</typeparam>
-    public class ECSPrototype<TDataType, TConstructData, TPrototypeType> : ScriptableObject where TDataType : ECSPrototypeComponent<TConstructData> where TPrototypeType : ECSPrototype<TDataType, TConstructData, TPrototypeType>
+    public class ECSPrototype<TComponentType, TConstructData, TPrototypeType> : ScriptableObject where TComponentType : ECSPrototypeComponent<TConstructData> where TPrototypeType : ECSPrototype<TComponentType, TConstructData, TPrototypeType>
     {
         /// <summary>
         /// The ancestor of this prototype.
@@ -31,12 +31,12 @@ namespace UnityTK.ECS
         /// The datas of this entity prototype.
         /// </summary>
         [SerializeField]
-        private List<TDataType> components;
+        private List<TComponentType> components;
 
         /// <summary>
         /// The runtime data evaluated by <see cref="components"/> and <see cref="ancestor"/>
         /// </summary>
-        private List<TDataType> initializedComponents;
+        private List<TComponentType> initializedComponents;
 
         /// <summary>
         /// Whether or not this prototype was initialized yet.
@@ -57,7 +57,7 @@ namespace UnityTK.ECS
         /// </summary>
         /// <param name="components">The components to set to this prototype instance. The list reference is kept internally!</param>
         /// <param name="ancestor">The ancestor of this prototype, may be null</param>
-        public void Setup(List<TDataType> components, TPrototypeType ancestor)
+        public void Setup(List<TComponentType> components, TPrototypeType ancestor)
         {
             this.components = components;
             this.ancestor = ancestor;
@@ -90,7 +90,7 @@ namespace UnityTK.ECS
             this.ancestor.Initialize();
 
             // Do inheritance magic :>
-            List<TDataType> datas = new List<TDataType>();
+            List<TComponentType> datas = new List<TComponentType>();
 
             // Iterate over every ancestor data
             foreach (var c in this.ancestor.initializedComponents)
@@ -156,6 +156,23 @@ namespace UnityTK.ECS
             ListPool<ComponentType>.Return(list);
             this.archetypes.Add(entityManager, archetype);
             return archetype;
+        }
+
+        /// <summary>
+        /// Tries getting a component of the specified type.
+        /// </summary>
+        /// <typeparam name="T">The type of the component to look for.</typeparam>
+        /// <param name="component">The component, default(T) if not existing.</param>
+        /// <returns>Whether or not the component was found. If this is true, component parameter is set.</returns>
+        public bool TryGetComponent<T>(out T component) where T : TComponentType
+        {
+            foreach (var comp in this.components)
+                if (comp is T)
+                {
+                    component = comp as T;
+                    return true;
+                }
+            return false;
         }
 
         /// <summary>
