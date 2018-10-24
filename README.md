@@ -1,3 +1,10 @@
+# DISCONTINUED
+
+This project is discontinued, Prototype functionality will be reimplemented in UnityTK.
+Apart from that i havent yet seen much things that would fit in this UnityTK submodule.
+
+I might pick this project up again in the future when ECS is more stable and extensive.
+
 # UnityTK.ECS
 
 This is a UnitTK module for unity's ECS (Entity Component System).
